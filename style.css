@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,700;1,900&family=Space+Grotesk&display=swap");
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  box-sizing: inherit;
+  background-color: #1D2837;
+  color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 140rem;
+  margin-top: 3rem;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: max-content repeat(6, 1fr);
+  grid-template-rows: max-content 1fr min-content;
+  align-items: center;
+}
+.header-place {
+  grid-column: 3/4;
+  justify-self: right;
+}
+.header h2 {
+  font-size: 2rem;
+}
+.header-time {
+  font-size: 2rem;
+  grid-column: 6/7;
+  justify-self: left;
+}
+.header-img {
+  grid-column: 4/6;
+  grid-row: 2/3;
+  justify-self: center;
+}
+.header figcaption {
+  grid-column: 4/6;
+  font-size: 1.5rem;
+  margin-left: 2rem;
+}
+.header .curdegree {
+  margin-left: 5rem;
+  margin-top: 2rem;
+  font-size: 3rem;
+}
+.header .chart {
+  grid-row: 4/5;
+  grid-column: 3/7;
+  align-self: last baseline;
+  justify-self: center;
+}
+.header .chart-img {
+  width: 60rem;
+  margin-top: 4rem;
+}
+
+.weather {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  font-size: 2rem;
+  justify-items: baseline;
+  align-items: left;
+}
+.weather-box--1 {
+  grid-column: 4/5;
+}
+.weather-box--2 {
+  grid-column: 5/6;
+}
+.weather-box--3 {
+  grid-column: 6/7;
+}
+.weather-box--4 {
+  grid-column: 7/8;
+}
+.weather-box--5 {
+  grid-column: 8/9;
+}
+.weather .img {
+  z-index: 100;
+}
+
+/*# sourceMappingURL=style.css.map */

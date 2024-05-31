@@ -1,0 +1,19 @@
+----THUNDERSTORM-----
+IMAGES
+big icon: img/image-thunder.svg
+temperature image: temperaturethunder.svg
+
+COLORS
+#1D2837
+
+linear-gradient: #BCE8FF 0%, #FFFFFF 100%
+
+-----SUNNY-----
+IMAGES
+big icon  img/01_sunny_colorbig.svg
+temperature image -img/temperaturesunny.svg
+
+COLORS
+color:#ffffff
+
+background - linear-gradient:#2f54f4 0%, 0fa2ab 100%
