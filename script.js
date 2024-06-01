@@ -6,26 +6,23 @@ const forecastTime = document.getElementById("forecast-time");
 const forecastImg = document.getElementById("forecast-img");
 const forecastDeg = document.getElementById("forecast-deg");
 let topvalue = ""
-
+let weatherDataLat = ""
+let weatherDataLon = ""
 input.onchange = () => {
   topvalue += input.value.trim()
 }
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   console.log(topvalue)
-  fetchWeatherData(topvalue)
+  fetchWeatherData(topvalue);
   fetchForecastData('Berlin')
+  .then(() => {
+    topvalue = ""
+  })
+  .catch((error) => {
+    console.error(error)
+  })
 })
-// forecastdata5.onclick = () => {
-//   forecastdata5.style.backgroundColor = "rgb(225,225,225,0.1)"
-//   forecastdata1.style.backgroundColor = "transparent"
-//   forecastdata2.style.backgroundColor = "transparent"
-//   forecastdata3.style.backgroundColor = "transparent"
-//   forecastdata4.style.backgroundColor = "transparent"
-// }
-// forecastdata5.onmouseenter = () => {
-//   forecastdata5.style.backgroundColor = "rgb(225,225,225,0.2)"
-// }
 
 forecastdata.onclick = () => {
   forecastdata1.style.backgroundColor = "rgb(225,225,225,0.1)"
@@ -53,18 +50,6 @@ const ForecastData = [
 ]
 
 
-
-ForecastData.forEach(data => {
-  const forecastItem = document.createElement('div');
-  forecastItem.className = "forecast-item"
-  forecastItem.innerHTML =`
-  <p>${data.time}</p>
-  <img src="${data.src}" alt="Weather Icon" />
-  <p>${data.deg}</p>
-  `;
-  forecastdata.appendChild(forecastItem)
-});
-
 const fetchWeatherData = async (value) => {
  
     try {
@@ -75,7 +60,9 @@ const fetchWeatherData = async (value) => {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const data = await response.json();
-
+          weatherDataLat += data.location.lat;
+          weatherDataLon += data.location.lon;
+          console.log(data)
           if(data){
             const temp = document.getElementById("temp");
             temp.innerHTML = `${data.current.temp_c}°C`;
@@ -94,32 +81,26 @@ const fetchWeatherData = async (value) => {
     }
 };
 
-const fetchForecastData = async (value) => {
-
-try {
-	const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m`,{
-    method: 'GET',
-  });
-	const result = await response.json();
-	console.log(result);
-} catch (error) {
-	console.error(error);
-}
-}
-
-// const url = 'https://forecast9.p.rapidapi.com/rapidapi/forecast/Berlin/hourly/';
-// const options = {
-// 	method: 'GET',
-// 	headers: {
-// 		'X-RapidAPI-Key': '81d0e94123msh28dfdf005231dd5p13b059jsn88aab1e0473f',
-// 		'X-RapidAPI-Host': 'forecast9.p.rapidapi.com'
-// 	}
-// };
-
-// try {
-// 	const response = await fetch(url, options);
-// 	const result = await response.text();
-// 	console.log(result);
-// } catch (error) {
-// 	console.error(error);
-// }
+const fetchForecastData = async () => {
+  try {
+    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m`, {
+      method: 'GET',
+    });
+    const result = await response.json();
+    console.log(result);
+    
+    const forecastdata = document.getElementById('forecast'); 
+    
+    result.hourly.time.forEach((time, index) => {
+      const forecastItem = document.createElement('div');
+      forecastItem.className = "forecast-item";
+      forecastItem.innerHTML = `
+        <p>${time}</p>
+        <p>${result.hourly.temperature_2m[index]} °C</p>
+      `;
+      forecastdata.appendChild(forecastItem);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
