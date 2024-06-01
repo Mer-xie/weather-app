@@ -6,16 +6,14 @@ const forecastTime = document.getElementById("forecast-time");
 const forecastImg = document.getElementById("forecast-img");
 const forecastDeg = document.getElementById("forecast-deg");
 let topvalue = ""
-let weatherDataLat = ""
-let weatherDataLon = ""
+
 input.onchange = () => {
   topvalue += input.value.trim()
 }
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   console.log(topvalue)
-  fetchWeatherData(topvalue);
-  fetchForecastData('Berlin')
+  fetchWeatherData(topvalue)
   .then(() => {
     topvalue = ""
   })
@@ -60,12 +58,11 @@ const fetchWeatherData = async (value) => {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const data = await response.json();
-          weatherDataLat += data.location.lat;
-          weatherDataLon += data.location.lon;
+          fetchForecastData(data)
           console.log(data)
           if(data){
             const temp = document.getElementById("temp");
-            temp.innerHTML = `${data.current.temp_c}°C`;
+            temp.innerHTML = `${data.current.temp_c}°`;
             const place = document.getElementById("place");
             place.innerHTML = `${data.location.name}, ${data.location.country}`;
             const time = document.getElementById("time");
@@ -81,9 +78,9 @@ const fetchWeatherData = async (value) => {
     }
 };
 
-const fetchForecastData = async () => {
+const fetchForecastData = async (value) => {
   try {
-    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m`, {
+    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${value.location.lat}&longitude=${value.location.lon}&hourly=temperature_2m`, {
       method: 'GET',
     });
     const result = await response.json();
@@ -91,12 +88,23 @@ const fetchForecastData = async () => {
     
     const forecastdata = document.getElementById('forecast'); 
     
-    result.hourly.time.forEach((time, index) => {
+    const FilteredTimes = result.hourly.time.slice(0, 5);
+    const FilteredTemp = result.hourly.temperature_2m.slice(0, 5).map(temp => Math.round(temp));
+
+    FilteredTimes.forEach((time, index) => {
+      const weirdTime = time
+      const date = new Date(weirdTime);
+      let hours = date.getHours()
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const formattedTime = `${hours}${ampm}`
+
       const forecastItem = document.createElement('div');
       forecastItem.className = "forecast-item";
       forecastItem.innerHTML = `
-        <p>${time}</p>
-        <p>${result.hourly.temperature_2m[index]} °C</p>
+        <p>${formattedTime}</p>
+        <p>${FilteredTemp[index]}°</p>
       `;
       forecastdata.appendChild(forecastItem);
     });
