@@ -102,7 +102,11 @@ body{
 
 
 &-box{
-    // padding: 0 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Center items horizontally
+    justify-content: center; // Center items vertically
+
 
     &--1{
         grid-column: 4/5;
@@ -115,7 +119,6 @@ body{
 
     &--3{
         grid-column: 6/7;
-        background: url('img/Rectangle\ 990rectangle.svg');
     }
 
     &--4{
@@ -128,15 +131,10 @@ body{
     }
 
 }
-&-time{
 }
 
-&-img{
-
-}
-&-degree{
-
-}
-
+.rect {
+    z-index: -5;
+    transform: translate(66rem, -9rem);
 
 }
