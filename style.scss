@@ -88,6 +88,8 @@ body{
             margin-top:4rem;
         }
     }
+
+  
 }
 
 .weather{   
@@ -113,6 +115,7 @@ body{
 
     &--3{
         grid-column: 6/7;
+        background: url('img/Rectangle\ 990rectangle.svg');
     }
 
     &--4{
@@ -125,15 +128,6 @@ body{
     }
 
 }
-
-.img{
-//     background-image:url('img/Rectangle\ 990rectangle.svg');
-//         // background-position: 50% 0;
-//         width: 8rem;
-//         height: 10rem;
-z-index: 100;
-
-}
 &-time{
 }
 
@@ -143,5 +137,6 @@ z-index: 100;
 &-degree{
 
 }
+
 
 }
