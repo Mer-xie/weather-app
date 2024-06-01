@@ -7,13 +7,13 @@ const forecastImg = document.getElementById("forecast-img");
 const forecastDeg = document.getElementById("forecast-deg");
 const ctx = document.getElementById("myChart");
 let topvalue = "";
+let myChartInstance;
 
 input.onchange = () => {
   topvalue += input.value.trim();
 };
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  console.log(topvalue);
   fetchWeatherData(topvalue)
     .then(() => {
       topvalue = "";
@@ -94,6 +94,7 @@ const fetchWeatherData = async (value) => {
 
 const fetchForecastData = async (value) => {
   try {
+    forecastdata.innerHTML = ""
     const response = await fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${value.location.lat}&longitude=${value.location.lon}&hourly=temperature_2m`,
       {
@@ -103,14 +104,19 @@ const fetchForecastData = async (value) => {
     const result = await response.json();
     console.log(result);
 
-    const forecastdata = document.getElementById("forecast");
+    
 
     const FilteredTimes = result.hourly.time.slice(0, 5);
     const FilteredTemp = result.hourly.temperature_2m
       .slice(0, 5)
       .map((temp) => Math.round(temp));
 
-    new Chart(ctx, {
+
+      if(myChartInstance){
+        myChartInstance.destroy()
+      }
+
+     myChartInstance = new Chart(ctx, {
       type: "line",
       data: {
         labels: FilteredTimes,
@@ -140,6 +146,8 @@ const fetchForecastData = async (value) => {
         },
       },
     });
+
+
     FilteredTimes.forEach((time, index) => {
       const weirdTime = time;
       const date = new Date(weirdTime);
