@@ -43,6 +43,17 @@ body{
         // justify-items: center;
         align-items: center;
 
+        &-top-items{
+            display: flex;
+            flex-direction: column;
+
+            .info{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border: 1px solid red;
+            }
+        }
     &-place{
         grid-column:3/4;
         justify-self:right;
@@ -64,6 +75,7 @@ body{
       grid-row:2/3;
       justify-self: center;
     }
+    
     figcaption{
         grid-column:4/6;
         font-size: 1.5rem;
