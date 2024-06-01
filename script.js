@@ -23,6 +23,16 @@ form.addEventListener("submit", (event) => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  fetchWeatherData("Los Angeles")
+    .then(() => {
+      topvalue = "";
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+})
+
 forecastdata.onclick = () => {
   forecastdata1.style.backgroundColor = "rgb(225,225,225,0.1)";
   forecastdata5.style.backgroundColor = "transparent";
