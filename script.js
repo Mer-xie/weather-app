@@ -24,7 +24,7 @@ form.addEventListener("submit", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetchWeatherData("Los Angeles")
+  fetchWeatherData("Nigeria")
     .then(() => {
       topvalue = "";
     })
@@ -42,12 +42,21 @@ forecastdata.onclick = () => {
 };
 
 const ImgLinks = [
-    {src: "img/sunny.svg", code: "1000"},
-    {src: "img/Image.svg", code: "1003"},
-    {src: "img/cloudy.svg", code: "1009"},
-    {src: "img/foggy.png", code: "1135"},
-    {src: "", code: "1261"},
-    {src: "", code: "1000"},
+  {src: "img/sunny.svg", code: "1000"},
+  {src: "img/35_partly_cloudy_daytime_color (1).svg", night:"img/36_partly_cloudy_night_color.svg", code: "1003"},
+  {src: "img/cloudy.svg", code: "1006"},
+  {src: "img/foggy.png", code: "1135"},
+  {src: "img/18_moderate_snow_color.svg", code: "1258"},
+  {src: "img/24_blizzard_color.svg", code: "1117"},
+  {src: "img/11_heavy_rain_color.svg", code: "1186"},
+  {src: "img/Imagewet-.svg", code: "1183"},
+  {src: "img/22_snow_color.svg", code: "1125"},
+  {src: "img/Image-thunder.svg", code: "1276"},
+  {src: "img/07_lightning_color.svg", code: "1087"},
+  {src: "img/13_heavy_rainstorm_color.svg", code: "1195"},
+  {src: "img/25_mist_color.svg", code: "1030"},
+  {src: "img/09_light_rain_color.svg", code: "1240"},
+  {src: "", code: "1000"},
 ]
 
 const ForecastData = [
