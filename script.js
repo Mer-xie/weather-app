@@ -5,6 +5,7 @@ const forecastdata = document.getElementById("forecast");
 const forecastTime = document.getElementById("forecast-time");
 const forecastImg = document.getElementById("forecast-img");
 const forecastDeg = document.getElementById("forecast-deg");
+const body = document.getElementById("body")
 const ctx = document.getElementById("myChart");
 let topvalue = "";
 let myChartInstance;
@@ -14,6 +15,7 @@ input.onchange = () => {
 };
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  backgroundColorChange()
   fetchWeatherData(topvalue)
     .then(() => {
       topvalue = "";
@@ -24,6 +26,7 @@ form.addEventListener("submit", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  backgroundColorChange()
   fetchWeatherData("Nigeria")
     .then(() => {
       topvalue = "";
@@ -33,16 +36,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 })
 
-forecastdata.onclick = () => {
-  forecastdata1.style.backgroundColor = "rgb(225,225,225,0.1)";
-  forecastdata5.style.backgroundColor = "transparent";
-  forecastdata2.style.backgroundColor = "transparent";
-  forecastdata3.style.backgroundColor = "transparent";
-  forecastdata4.style.backgroundColor = "transparent";
-};
+const backgroundColorChange = () => {
+  const date = new Date();
+  const hours = date.getHours();
+  if(hours >= 18){
+    body.style.backgroundImage = "linear-gradient(to bottom, #1D2837, #1D2837)"
+    body.style.color = "white"
+  }else if(hours < 18 && hours > 14){
+    body.style.backgroundImage = "linear-gradient(to bottom, #2F5AF4, #0FA2AB)"
+    body.style.color = "white"
+  }else{
+    body.style.backgroundImage = "linear-gradient(to bottom, #BCE8FF, #FFFFFF)"
+    body.style.color = "black"
+  }
+}
 
 const ImgLinks = [
-  {src: "img/sunny.svg", code: "1000"},
+  {src: "img/sunny.svg", night:"img/half-moon.svg", code: "1000"},
   {src: "img/35_partly_cloudy_daytime_color (1).svg", night:"img/36_partly_cloudy_night_color.svg", code: "1003"},
   {src: "img/cloudy.svg", code: "1006"},
   {src: "img/foggy.png", code: "1135"},
@@ -80,7 +90,8 @@ const fetchWeatherData = async (value) => {
     }
     const data = await response.json();
     fetchForecastData(data);
-    console.log(data);
+    const date = new Date();
+    const hours = date.getHours();
     if (data) {
       const temp = document.getElementById("temp");
       temp.innerHTML = `${data.current.temp_c}°`;
@@ -94,7 +105,12 @@ const fetchWeatherData = async (value) => {
       const imgLink = ImgLinks.find(
         (img) => img.code === data.current.condition.code.toString()
       );
-      image.src = imgLink ? imgLink.src : "";
+
+      if(hours >= 18){
+        image.src = imgLink ? imgLink.night : "";
+      }else{
+        image.src = imgLink ? imgLink.src : "";
+      }
     }
   } catch (error) {
     console.log(error);
