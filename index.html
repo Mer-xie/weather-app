@@ -1,77 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="grid-container">
-        <div class="container">
+      <div class="container">
         <header class="header">
-            <h2 class="header-place">Los Angeles</h2>
-            <p class="header-time">
-                11:00
-            </p>
-            <figure class="header-img">
-                <img src="img/Image.svg" alt="">
-            <figcaption>Partly cloudy</figcaption>
-            <p class="curdegree">24°</p>
-            </figure>
-           
-            <figure class="chart">
-                <img src="img/temperature.svg" class="chart-img" alt="">
-            </figure>
-            </header>
-
-            <div class="weather">
-                <div class="weather-box weather-box--1">
-                    <p class="weather-time">9AM</p>
-                    <img src="img/03_cloud_color.svg" alt="" class="weather-icon">
-                    <p class="weather-degree">
-                        18°
-                    </p>
-                </div>
-
-                <div class="weather-box weather-box--2">
-                    <p class="weather-time">9AM</p>
-                    <img src="/img/Imagewind.svg" alt="" class="weather-icon">
-                    <p class="weather-degree">
-                        19°
-                    </p>
-                   
-                </div>
-       
-                <div class="weather-box weather-box--3"> 
-                    <p class="weather-time">9AM</p>
-                    <img src="img/Image-cloud-icon (1).svg" alt="" class="weather-icon">
-                    <p class="weather-degree">
-                        24°
-                    </p>
-                 
-                </div>
-
-                <div class="weather-box weather-box--4">
-                    <p class="weather-time">9AM</p>
-                    <img src="img/01_sunny_color.svg" alt="" class="weather-icon">
-                    <p class="weather-degree">
-                        25°
-                    </p>
-                </div>
-
-                <div class="weather-box weather-box--5">
-                    <p class="weather-time">9AM</p>
-                    <img src="img/09_light_rain_color.svg" alt="" class="weather-icon">
-                    
-                    <p class="weather-degree">
-                        26°
-                    </p>
-                </div>
+          <div class="header-nav">
+            <div class="header-info">
+              <h2 class="header-place" id="place">Los Angeles</h2>
+              <p class="header-time" id="time">11:00</p>
             </div>
+            <form class="header-form" id="form">
+              <input type="text" id="input" value="" placeholder="Enter Country name" class="header-input" required />
+              <button type="submit" id="btn" class="header-btn">Search Country..</button>
+            </form>
+          </div>
+           
+          <figure class="header-img">
+            <img src="img/Image.svg" alt="Weather Img" id="wimg" class="header-lg-img" />
+            <figcaption id="description">Partly cloudy</figcaption>
+            <p class="curdegree" id="temp">24°</p>
+          </figure>
+
+          <figure class="chart">
+            <img src="img/temperature.svg" class="chart-img" alt="" />
+          </figure>
+        </header>
+
+        <!-- weather forecast -->
+        <div class="weather">
+            <div class="weather-box--1" role="button" id="forecast"></div>
         </div>
+      </div>
     </div>
 
-    <img src="/img/Rectangle 990rectangle.svg" alt="" class="rect">
-</body>
+  <script src="script.js"></script>
+
+  </body>
 </html>
