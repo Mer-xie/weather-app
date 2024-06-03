@@ -7,8 +7,18 @@ const forecastImg = document.getElementById("forecast-img");
 const forecastDeg = document.getElementById("forecast-deg");
 const body = document.getElementById("body")
 const ctx = document.getElementById("myChart");
+const errorBox = document.getElementById("error-box");
+const errorText = document.getElementById("error-text");
 let topvalue = "";
 let myChartInstance;
+
+const date = new Date()
+const hours = date.getHours()
+if(hours >= 14){
+  input.style.color = "white"
+}else{
+  input.style.color = "black"
+}
 
 input.onchange = () => {
   topvalue += input.value.trim();
@@ -21,7 +31,8 @@ form.addEventListener("submit", (event) => {
       topvalue = "";
     })
     .catch((error) => {
-      console.error(error);
+      errorBox.style.display = "block";
+      errorText.innerHTML = error.message;
     });
 });
 
@@ -42,7 +53,7 @@ const backgroundColorChange = () => {
   if(hours >= 18){
     body.style.backgroundImage = "linear-gradient(to bottom, #1D2837, #1D2837)"
     body.style.color = "white"
-  }else if(hours < 18 && hours > 14){
+  }else if(hours < 18 && hours >= 14){
     body.style.backgroundImage = "linear-gradient(to bottom, #2F5AF4, #0FA2AB)"
     body.style.color = "white"
   }else{
@@ -66,7 +77,7 @@ const ImgLinks = [
   {src: "img/13_heavy_rainstorm_color.svg", code: "1195"},
   {src: "img/25_mist_color.svg", code: "1030"},
   {src: "img/09_light_rain_color.svg", code: "1240"},
-  {src: "", code: "1000"},
+  {src:"img/cloudy.png", code: "1009"}
 ]
 
 const ForecastData = [
@@ -121,7 +132,7 @@ const fetchForecastData = async (value) => {
   try {
     forecastdata.innerHTML = ""
     const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${value.location.lat}&longitude=${value.location.lon}&hourly=temperature_2m`,
+      `https://api.open-meteo.com/v1/forecast?latitude=${value.location.lat}&longitude=${value.location.lon}&hourly=temperature_2m&forecast_hours=5`,
       {
         method: "GET",
       }
