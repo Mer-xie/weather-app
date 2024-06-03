@@ -33,7 +33,7 @@ body {
 }
 
 .container {
-  width: 40rem;
+  width: 96%;
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
@@ -177,7 +177,7 @@ body {
   width: 100%;
 }
 .chart {
-  width: 40rem;
+  width: 96%;
   margin: 35px auto;
 }
 
