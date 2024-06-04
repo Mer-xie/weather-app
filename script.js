@@ -31,8 +31,7 @@ form.addEventListener("submit", (event) => {
       topvalue = "";
     })
     .catch((error) => {
-      errorBox.style.display = "block";
-      errorText.innerHTML = error.message;
+     console.log(error)
     });
 });
 
@@ -88,6 +87,14 @@ const ForecastData = [
   { time: "9AM", src: "img/09_light_rain_color.svg", deg: "26°", id: 5 },
 ];
 
+const showError = (message) => {
+  errorBox.style.display = "block";
+  errorText.innerHTML = message;
+
+  setTimeout(() => {
+    errorBox.style.display = "none";
+  }, 7000);
+};
 const fetchWeatherData = async (value) => {
   try {
     const response = await fetch(
@@ -124,7 +131,9 @@ const fetchWeatherData = async (value) => {
       }
     }
   } catch (error) {
-    console.log(error);
+    if(error){
+      showError("No country or state found");
+    }
   }
 };
 
@@ -202,6 +211,6 @@ const fetchForecastData = async (value) => {
       forecastdata.appendChild(forecastItem);
     });
   } catch (error) {
-    console.error(error);
+    showError("An error occurred while fetching forecast data.");
   }
 };
