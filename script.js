@@ -91,7 +91,7 @@ const ForecastData = [
 const fetchWeatherData = async (value) => {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/current.json?key=bd40c0923d484ab9a6a80911243105&q=${value}`,
+      `https://api.weatherapi.com/v1/current.json?key=bd40c0923d484ab9a6a80911243105&q=${value}`,
       {
         method: "GET",
       }
